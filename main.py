@@ -3,11 +3,13 @@
 #Javier Ramos
 import numpy
 import math
+import matplotlib.pyplot as plt
+import time
 
 # duracion del proyecto 20 dias
 PROJECT_DURATION = 20
 # iteracinoes
-ITERATIONS = 1000000
+ITERATIONS = 10000
 
 tiempos = {
     'd_interfaz':    {'optimista': 1, 'probable': 2, 'pesimista': 3},
@@ -26,6 +28,8 @@ print(math.floor(numpy.random.triangular(1, 5, 10)))
 
 # suffering from success DJ KALED
 success = 0
+# array
+plot = []
 
 for i in range(ITERATIONS):
     # no elapsed time
@@ -39,4 +43,12 @@ for i in range(ITERATIONS):
     if elapsed_time <= PROJECT_DURATION:
         success += 1
 
-print(success/ITERATIONS)
+    plot.append(elapsed_time)
+
+print(str(success/ITERATIONS) + " para: " + str(ITERATIONS))
+
+# plot histogram
+plt.hist(x=plot, bins='auto', density=True)
+plt.title('Iteraciones: ' + str(ITERATIONS))
+plt.xlabel('Probabilidad de exito: ' + str(success/ITERATIONS))
+plt.show()
